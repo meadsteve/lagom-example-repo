@@ -1,6 +1,6 @@
 import random
 
-from lagom import Container, bind_to_container
+from lagom import Container
 from starlette.applications import Starlette
 from starlette.responses import JSONResponse
 from starlette.routing import Route
@@ -21,7 +21,6 @@ container = Container()
 container[MessageGenerator] = lambda: MessageGenerator(WELCOME_MESSAGES)
 
 
-@bind_to_container(container)
 def homepage(request, messages: MessageGenerator):
     return JSONResponse({
         'message': messages.random_message()
@@ -29,5 +28,5 @@ def homepage(request, messages: MessageGenerator):
 
 
 app = Starlette(debug=True, routes=[
-    Route('/', homepage),
+    Route('/', container.partial(homepage)),
 ])
