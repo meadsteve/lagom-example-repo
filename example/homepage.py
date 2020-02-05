@@ -1,10 +1,13 @@
 import random
+from typing import NewType, List
 
 from starlette.responses import JSONResponse
 
+Greeting = NewType("Greeting", str)
+
 
 class MessageGenerator:
-    def __init__(self, messages):
+    def __init__(self, messages: List[Greeting]):
         self._messages = messages
 
     def random_message(self):

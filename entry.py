@@ -1,13 +1,17 @@
+from typing import List
+
 from lagom import Container
 from starlette.applications import Starlette
 from starlette.routing import Route
 
-from example.homepage import MessageGenerator, homepage_handler
-
-WELCOME_MESSAGES = ["Hello", "Hej", "Hellå"]
+from example.homepage import homepage_handler, Greeting
 
 container = Container()
-container[MessageGenerator] = lambda: MessageGenerator(WELCOME_MESSAGES)
+container[List[Greeting]] = [
+    Greeting("Hello"),
+    Greeting("Hej"),
+    Greeting("Hellå")
+]
 
 app = Starlette(debug=True, routes=[
     Route('/', container.partial(homepage_handler)),
