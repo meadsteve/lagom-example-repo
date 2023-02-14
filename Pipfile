@@ -9,7 +9,7 @@ mypy = "*"
 
 [packages]
 lagom = "~=0.20.0"
-starlette = "~=0.13.1"
+starlette = "~=0.25.0"
 requests = "~=2.22.0"
 uvicorn = "~=0.11.7"
 
